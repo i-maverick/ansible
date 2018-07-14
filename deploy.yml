@@ -1,16 +1,8 @@
 # file: deploy.yml
-
-- hosts: local-servers
-  tasks:
-  - ping:
-
 - hosts: app-servers
   user: maverick
 
   tasks:
-  - name: ping remote host
-    ping:
-
   - name: create project dir if not exist
     file:
       path: /Users/maverick/dev/ansible

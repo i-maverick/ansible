@@ -1,0 +1,8 @@
+# file: ping.yml
+
+- hosts: app-servers
+  user: maverick
+
+  tasks:
+  - name: ping server
+    ping:
