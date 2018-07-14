@@ -2,25 +2,29 @@
 
 - hosts: app-servers
   user: maverick
+
   tasks:
   - name: ping remote host
     ping:
+
   - name: create project dir if not exist
     file:
       path: /Users/maverick/dev/ansible
       state: directory
+
   - name: clone github repo
     git:
       repo: git@github.com:i-maverick/ansible.git
       version: master
       dest: /Users/maverick/dev/ansible
-    notify: restart ansible
     register: ansible_repo
-#  - name: restart service
-#    service:
-#      name: network
-#      state: restarted
-#      when: ansible_repo.changed
+
   - name: on change
     debug: msg="Repo was changed"
+    when: ansible_repo.changed
+
+  - name: restart service
+    service:
+      name: network
+      state: restarted
     when: ansible_repo.changed
