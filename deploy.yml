@@ -15,13 +15,9 @@
       dest: /Users/maverick/dev/ansible
     register: ansible_repo
 
-  - name: on change
-    debug:
-      msg: "Repo was changed"
-    when: ansible_repo.changed
-
   - name: restart service
     service:
       name: network
       state: restarted
+    debug: msg="service restarted"
     when: ansible_repo.changed
