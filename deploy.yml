@@ -14,12 +14,13 @@
       repo: git@github.com:i-maverick/ansible.git
       version: master
       dest: /Users/maverick/dev/ansible
+    notify: restart ansible
     register: ansible_repo
 #  - name: restart service
 #    service:
 #      name: network
 #      state: restarted
+#      when: ansible_repo.changed
   - name: on change
     debug: msg="Repo was changed"
     when: ansible_repo.changed
-
