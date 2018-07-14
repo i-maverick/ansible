@@ -1,0 +1,10 @@
+# file: python3.yml
+
+- name: Update apt-get cache and install python3
+  hosts: app-servers
+  become: yes
+  tasks:
+#    - name: Update apt-get cache
+#      apt: update-cache=yes 
+    - name: Install python3
+      apt: name=python update-cache=yes

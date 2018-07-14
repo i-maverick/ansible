@@ -1,0 +1,16 @@
+# file: deploy.yml
+
+- hosts: app-servers
+  user: maverick
+  tasks:
+  - name: ping remote host
+    ping:
+  - name: create project dir if not exist
+    file:
+      path: "/Users/maverick/dev/ansible"
+      state: directory
+  - name: clone github repo
+    git:
+      repo: git@github.com:i-maverick/ansible.git
+      version: master
+      dest: /Users/maverick/dev/ansible

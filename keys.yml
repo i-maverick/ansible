@@ -1,0 +1,10 @@
+# file: keys.yml
+
+---
+- hosts: app-servers
+  tasks:
+  - name: Set up authorized_keys for the backup user
+    authorized_key: user=backup key="{{ item }}"
+    with_file:
+    - /home/bi/.ssh/id_rsa.pub
+...
