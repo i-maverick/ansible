@@ -1,5 +1,9 @@
 # file: deploy.yml
 
+- hosts: local-servers
+  tasks:
+  - ping:
+
 - hosts: app-servers
   user: maverick
 
@@ -20,7 +24,8 @@
     register: ansible_repo
 
   - name: on change
-    debug: msg="Repo was changed"
+    debug:
+      msg: "Repo was changed"
     when: ansible_repo.changed
 
   - name: restart service
