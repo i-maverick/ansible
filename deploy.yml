@@ -1,9 +1,9 @@
 # file: deploy.yml
 # usage: ansible-playbook -i hosts deploy.yml --extra-vars "version=master"
 
-- hosts: local
+- hosts: app-servers
   vars:
-    user: bi
+    user: maverick
     destination: /home/{{ user }}/Development/ansible
   user: '{{ user }}'
 
@@ -19,13 +19,12 @@
       version: '{{ version }}'
       dest: '{{ destination }}'
       force: yes
-    register: ansible_repo
+    notify:
+    - restart service
 
+  handlers:
   - name: restart service
+    become: yes
     service:
       name: cron
       state: restarted
-    when: ansible_repo.changed
-
-  - debug: msg="service restarted!"
-    when: ansible_repo.changed
