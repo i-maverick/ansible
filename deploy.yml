@@ -1,25 +1,31 @@
 # file: deploy.yml
 # usage: ansible-playbook -i hosts deploy.yml --extra-vars "version=master"
 
-- hosts: app-servers
-  user: maverick
+- hosts: local
+  vars:
+    user: bi
+    destination: /home/{{ user }}/Development/ansible
+  user: '{{ user }}'
 
   tasks:
   - name: create project dir if not exist
     file:
-      path: /Users/maverick/dev/ansible
+      path: '{{ destination }}'
       state: directory
 
   - name: clone github repo
     git:
       repo: git@github.com:i-maverick/ansible.git
       version: '{{ version }}'
-      dest: /Users/maverick/dev/ansible
+      dest: '{{ destination }}'
+      force: yes
     register: ansible_repo
 
   - name: restart service
-#    service:
-#      name: network
-#      state: restarted
-    debug: msg="service restarted"
+    service:
+      name: cron
+      state: restarted
+    when: ansible_repo.changed
+
+  - debug: msg="service restarted!"
     when: ansible_repo.changed
