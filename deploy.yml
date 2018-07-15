@@ -1,4 +1,6 @@
 # file: deploy.yml
+# usage: ansible-playbook -i hosts deploy.yml --extra-vars "version=master"
+
 - hosts: app-servers
   user: maverick
 
@@ -11,7 +13,7 @@
   - name: clone github repo
     git:
       repo: git@github.com:i-maverick/ansible.git
-      version: master
+      version: '{{ version }}'
       dest: /Users/maverick/dev/ansible
     register: ansible_repo
 
