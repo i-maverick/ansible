@@ -16,8 +16,8 @@
     register: ansible_repo
 
   - name: restart service
-    service:
-      name: network
-      state: restarted
+#    service:
+#      name: network
+#      state: restarted
     debug: msg="service restarted"
     when: ansible_repo.changed
