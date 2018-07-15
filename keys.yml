@@ -1,10 +1,10 @@
 # file: keys.yml
 
-- hosts: app-servers
-  user: ansible
+- hosts: local
+  user: bi
   tasks:
   - name: Set up authorized_keys for the ansible user
     authorized_key:
-      user: ansible
+      user: root
       state: present
-      key: "{{ lookup('file', '/home/user/.ssh/id_rsa.pub') }}"
+      key: "{{ lookup('file', '/home/bi/.ssh/id_rsa.pub') }}"
