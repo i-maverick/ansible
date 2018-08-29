@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'Greeting', defaultValue: 'Hello', description: 'How to greet')
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Build'
+                echo "${params.Greeting}"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploy'
+            }
+        }
+    }
+}
